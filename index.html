@@ -1,0 +1,36 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Email Reputation Checker</title>
+</head>
+<body>
+  <h1>Email Reputation Checker</h1>
+  <label for="email">Enter an email address:</label>
+  <input type="text" id="email" name="email"><br><br>
+  <button type="button" onclick="checkReputation()">Check Reputation</button>
+  <br><br>
+  <div id="result"></div>
+
+  <script>
+    function checkReputation() {
+      const email = document.getElementById('email').value;
+      const xhr = new XMLHttpRequest();
+      const url = `https://emailrep.io/${email}`;
+      xhr.open('GET', url);
+      xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko');
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          document.getElementById('result').innerHTML = `Reputation for ${email}: ${response.reputation}`;
+        } else {
+          document.getElementById('result').innerHTML = `Request failed. Returned status of ${xhr.status}`;
+        }
+      };
+      xhr.onerror = () => {
+        document.getElementById('result').innerHTML = 'Request failed.';
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
