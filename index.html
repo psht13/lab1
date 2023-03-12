@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Перевірка репутації електронної адреси/title>
+  <meta charset="UTF-8">
+  <title>Перевірка репутації електронної адреси</title>
 </head>
 <body>
   <h1>Перевірка репутації електронної адреси</h1>
   <label for="email">Введіть адресу:</label>
   <input type="text" id="email" name="email"><br><br>
-  <button type="button" onclick="checkReputation()">Перевірити репутацію</button><br><br>
+  <button type="button" onclick="checkReputation()">Перевірити репутацію</button>
+  <br><br>
   <div id="result"></div>
-<script>
-      function checkReputation() {
-        const email = document.getElementById('email').value;
-        const xhr = new XMLHttpRequest();
-        const url = `https://emailrep.io/${email}`;
-        xhr.open('GET', url);
-        xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko');
-        xhr.onload = () => {
-          if (xhr.status === 200) {
-            const response = JSON.parse(xhr.responseText);
-            document.getElementById('result').innerHTML = `Репутація адреси ${email}: ${response.reputation}`;
-          } else {
-            document.getElementById('result').innerHTML = `Запит невдалий. Статус помилки ${xhr.status}`;
-          }
-          };
-          xhr.onerror = () => {
-            document.getElementById('result').innerHTML = 'Запит невдалий.';
-          };
-        xhr.send();
-      }
-</script>
+
+  <script>
+    function checkReputation() {
+      const email = document.getElementById('email').value;
+      const xhr = new XMLHttpRequest();
+      const url = `https://emailrep.io/${email}`;
+      xhr.open('GET', url);
+      xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko');
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          document.getElementById('result').innerHTML = `Репутація адреси ${email}: ${response.reputation}`;
+        } else {
+          document.getElementById('result').innerHTML = `Запит невдалий. Статус помилки ${xhr.status}`;
+        }
+      };
+      xhr.onerror = () => {
+        document.getElementById('result').innerHTML = 'Запит невдалий.';
+      };
+      xhr.send();
+    }
+  </script>
 </body>
 </html>
