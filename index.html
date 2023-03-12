@@ -17,7 +17,7 @@
       const xhr = new XMLHttpRequest();
       const url = `https://emailrep.io/${email}`;
       xhr.open('GET', url);
-      xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko');
+      xhr.setRequestHeader('Emailrep-checker', 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko');
       xhr.onload = () => {
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
