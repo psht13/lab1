@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Email Reputation Checker</title>
+<title>Перевірка репутації електронної адреси/title>
 </head>
 <body>
+  <h1>Перевірка репутації електронної адреси</h1>
+  <label for="email">Введіть адресу:</label>
+  <input type="text" id="email" name="email"><br><br>
+  <button type="button" onclick="checkReputation()">Перевірити репутацію</button><br><br>
+  <div id="result"></div>
 <script>
       function checkReputation() {
         const email = document.getElementById('email').value;
@@ -14,21 +19,16 @@
         xhr.onload = () => {
           if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
-            document.getElementById('result').innerHTML = `Reputation for ${email}: ${response.reputation}`;
+            document.getElementById('result').innerHTML = `Репутація адреси ${email}: ${response.reputation}`;
           } else {
-            document.getElementById('result').innerHTML = `Request failed. Returned status of ${xhr.status}`;
+            document.getElementById('result').innerHTML = `Запит невдалий. Статус помилки ${xhr.status}`;
           }
           };
           xhr.onerror = () => {
-            document.getElementById('result').innerHTML = 'Request failed.';
+            document.getElementById('result').innerHTML = 'Запит невдалий.';
           };
         xhr.send();
       }
 </script>
-  <h1>Email Reputation Checker</h1>
-  <label for="email">Enter an email address:</label>
-  <input type="text" id="email" name="email"><br><br>
-  <button type="button" onclick="checkReputation()">Check Reputation</button><br><br>
-  <div id="result"></div>
 </body>
 </html>
